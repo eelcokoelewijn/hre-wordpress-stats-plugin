@@ -1,0 +1,16 @@
+@CHARSET "UTF-8";
+
+#hre
+{
+	color:#ff0000;
+}
+
+.hre-participant-name
+{
+	text-align:left;
+}
+
+.hre-participant-city
+{
+	text-align:left;	
+}
