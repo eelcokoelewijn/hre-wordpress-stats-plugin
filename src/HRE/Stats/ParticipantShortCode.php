@@ -29,7 +29,7 @@ class ParticipantShortCode
 	 * @param      string    $plugin_name       The name of this plugin.
 	 * @param      string    $version    The version of this plugin.
 	 */
-	
+
 	public function __construct( $plugin_name, $version ) {
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
@@ -54,7 +54,7 @@ class ParticipantShortCode
 		 */
 		wp_enqueue_style( $this->plugin_name.'_participants', Stats::pluginURL('/public/css/hre-stats-public.css'), array(), $this->version, 'all' );
 	}
-	
+
 	/**
 	 * Register the JavaScript for the admin area.
 	 *
@@ -75,12 +75,12 @@ class ParticipantShortCode
 		 */
 		wp_enqueue_script( $this->plugin_name.'_participants', Stats::pluginURL('/public/js/hre-stats-public.js'), array( 'jquery' ), $this->version, false );
 	}
-	
+
 	public function register_shortcode()
 	{
 		add_shortcode( 'hre-participants', array( 'HRE\Stats\ParticipantShortCode', 'render_shortcode' ) );
 	}
-	
+
 	public static function render_shortcode($atts, $content = null)
 	{
 		$dataManager = new DataManager();
@@ -90,9 +90,9 @@ class ParticipantShortCode
 		$grouping = null;
 		foreach ($data as $participant)
 		{
-			if ($grouping != $participant['gender']) {
+			if ($grouping != $participant['Gender']) {
 				$title = '';
-				switch ($participant['gender']){
+				switch ($participant['Gender']){
 					case 'Man':
 						$title = 'Mannen';
 						break;
@@ -100,17 +100,17 @@ class ParticipantShortCode
 						$title = 'Vrouwen';
 						break;
 				}
-				$html .= "<tr><th colspan=\"2\" class=\"hre-participant-name\"><a name=\"{$participant['gender']}\">&nbsp;</a><h2>{$title}</h2></th></tr>";
-				$grouping = $participant['gender'];
+				$html .= "<tr><th colspan=\"2\" class=\"hre-participant-name\"><a name=\"{$participant['Gender']}\">&nbsp;</a><h2>{$title}</h2></th></tr>";
+				$grouping = $participant['Gender'];
 			}
 			$html .= '<tr class="hre-participant">';
 			$html .= "<td class=\"hre-participant-name\">{$participant['Name']}</td>";
-			$html .= "<td class=\"hre-participant-city\">{$participant['city']}</td>";			
+			$html .= "<td class=\"hre-participant-city\">{$participant['city']}</td>";
 			$html .= '</tr>';
 		}
 		$html .= '</table>';
-		
+
 		return $html;
 	}
-	
+
 }
